@@ -3,8 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dropzone from 'react-dropzone';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import {AppBar, RaisedButton, Toolbar} from "material-ui";
-import axios, { post } from 'axios';
+import {RaisedButton, Toolbar} from "material-ui";
+import axios from 'axios';
 
 class Upload extends Component {
     constructor(props){
@@ -30,7 +30,7 @@ class Upload extends Component {
                     'content-type': 'multipart/form-data'
                 }
             };
-            post(url, formData,config)
+            axios.post(url, formData,config)
                 .then(function (response) {
                     update.callUpdate(response);
                 })
@@ -72,13 +72,7 @@ class Upload extends Component {
     render() {
         return (
             <div className="App">
-                <MuiThemeProvider>
-                    <div>
-                        <AppBar
-                            title="Elephant Recognizer"
-                        />
-                    </div>
-                </MuiThemeProvider>
+
                 <center>
                     <div style={{marginBottom: '5%'}}></div>
                     <Dropzone onDrop={(files) => this.onDrop(files)}>
