@@ -21,6 +21,12 @@
 .App-intro {
   font-size: large;
 }
+.landing-page{
+  height: 630px;
+  width: 1519px;
+
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
