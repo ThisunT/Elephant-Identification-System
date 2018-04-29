@@ -8,7 +8,7 @@ class DemoCarousel extends Component {
 render() {
         return (
 
-            <Carousel showArrows={false} autoPlay={true} interval={1000}>
+            <Carousel showArrows={false} showStatus={false} showThumbs={false} infiniteLoop={true} autoPlay={true} interval={1000}>
 
                 <div>
                     <img className="landing-page"  src={require('../images/final.jpg')} />

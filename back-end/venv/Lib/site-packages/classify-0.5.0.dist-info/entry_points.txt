@@ -1,0 +1,3 @@
+[console_scripts]
+classify = classify.main:run
+
