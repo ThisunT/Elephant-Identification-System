@@ -5,6 +5,9 @@ import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 import {RaisedButton, Toolbar} from "material-ui";
 import axios from 'axios';
+<script src="dropzone.js"></script>
+
+
 
 class Upload extends Component {
     constructor(props){
@@ -30,6 +33,7 @@ class Upload extends Component {
                     'content-type': 'multipart/form-data'
                 }
             };
+
             axios.post(url, formData,config)
                 .then(function (response) {
                     update.callUpdate(response);
@@ -60,6 +64,7 @@ class Upload extends Component {
                                 styles={{fontWeight: 1}}
                             >clear</FontIcon></a>
                         </MuiThemeProvider>
+
                     </div>
                 )
             }

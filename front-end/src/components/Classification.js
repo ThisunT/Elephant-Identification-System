@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Classification extends Component {
     render(){
         if(this.props.result.data !== undefined){
