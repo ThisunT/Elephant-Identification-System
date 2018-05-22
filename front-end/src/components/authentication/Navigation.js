@@ -10,6 +10,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import '../../App.css'
 import {white} from 'material-ui/styles/colors';
 import DrawerSimpleExample from "./DrawerSimpleExample";
+import DrawerUndockedExample from "./OpenDrawer";
+import {Drawer, MenuItem} from "material-ui";
+
+import Foo from "./Foo";
+import Bar from "./Bar";
 
 
 
@@ -61,28 +66,38 @@ const NavigationNonAuth = () => (
 );
 
 class NavigationAuth extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-
         this.state = {
-            open: false
+            "open": false,
+            "show": null
         };
-
-        this.toggleDrawer = this.toggleDrawer.bind(this);
-        this.handleClose = this.handleClose.bind(this);
     }
 
-    toggleDrawer(value=!this.state.open) {
-        this.setState({
-            open:value
-        });
-    }
 
-    handleClose(){
-        this.setState({open: false})
-    }
 
+    handleToggle = () => this.setState({open: !this.state.open});
+
+    // showBar = () => {
+    //     this.setState({show: 'bar' , open: false});
+    //
+    // };
+    // showFoo = () => {
+    //     routes.ACCOUNT
+    // };
     render (){
+        // let content = null;
+        //
+        // switch (this.state.show){
+        //     case 'foo':
+        //         content = (<Foo/>);
+        //         break;
+        //     case 'bar':
+        //         content = (<Bar/>);
+        //         break;
+        //     default:
+        //         content = <h1>Hiiii</h1>
+        // }
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
@@ -90,8 +105,8 @@ class NavigationAuth extends Component {
 
                         title="Elephant Recognizer"
 
-                        onLeftIconButtonClick={this.toggleDrawer.bind(this)}
-                        isInitiallyOpen={true}
+                        onLeftIconButtonClick={this.handleToggle}
+                        // isInitiallyOpen={true}
                         iconElementRight={
                             <div>
                                 <Link to={routes.LANDING}><FlatButton style={{fontSize: '30%', color: white}} label="Landing"/></Link>
@@ -100,7 +115,25 @@ class NavigationAuth extends Component {
                                 <SignOutButton/>
                             </div>
                         }
+
                     />
+                    <Drawer
+                        docked={false}
+                        width={220}
+                        open={this.state.open}
+                        onRequestChange={(open) => this.setState({open})}>
+                        <AppBar title="Menu"/>
+                        {/*<MenuItem onClick={this.showFoo}>Show Foo </MenuItem>*/}
+                        {/*<MenuItem onClick={this.showBar}>Show Bar</MenuItem>*/}
+                        <Link to={routes.HOME} style={{ textDecoration: 'none' }}><MenuItem onClick={this.handleClose}>Home</MenuItem></Link>
+                        <Link to={routes.ACCOUNT} style={{ textDecoration: 'none' }}><MenuItem onClick={this.handleClose}>Account</MenuItem></Link>
+                        <Link to={routes.PASSWORD_FORGET} style={{ textDecoration: 'none' }}><MenuItem onClick={this.handleClose}>Settings</MenuItem></Link>
+
+
+
+                    </Drawer>
+                    {/*{content}*/}
+
 
 
 
