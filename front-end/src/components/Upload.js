@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dropzone from 'react-dropzone';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import {RaisedButton, Toolbar} from "material-ui";
+import {FlatButton, RaisedButton, Toolbar} from "material-ui";
 import axios from 'axios';
 <script src="dropzone.js"></script>
 
@@ -19,7 +19,17 @@ class Upload extends Component {
         }
     }
 
+    handleClear(event){
+        var array = [this.state.filesToBeSent]; // make a separate copy of the array
+        var index = array.indexOf(event.target.value)
+        array.splice(index, 1);
+        this.setState({filesToBeSent: array});
 
+        alert("You cannot add more files here");
+        document.getElementById('day" + i + "').style.display ='none';
+
+
+    }
     handleClick(event){
         const update = this.props;
         if(this.state.filesToBeSent.length>0){
@@ -35,8 +45,9 @@ class Upload extends Component {
             };
 
             axios.post(url, formData,config)
-                .then(function (response) {
+                .then(function (response, formData) {
                     update.callUpdate(response);
+                    update.callTable(formData);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -55,14 +66,15 @@ class Upload extends Component {
             var filesPreview=[];
             for(var i in filesToBeSent){
                 filesPreview.push(
-                    <div>
+                    <div id='day" + i + "'>
                         {filesToBeSent[i][0].name}
                         <MuiThemeProvider>
-                            <a href="#"><FontIcon
-                                className="material-icons customstyle"
-                                color={blue500}
-                                styles={{fontWeight: 1}}
-                            >clear</FontIcon></a>
+                            <FlatButton label="Clear" primary={true} onClick={(event) => this.handleClear(event)} />
+                            {/*<a href="#"><FontIcon*/}
+                                {/*className="material-icons customstyle"*/}
+                                {/*color={blue500}*/}
+                                {/*styles={{fontWeight: 1}}*/}
+                            {/*>clear</FontIcon></a>*/}
                         </MuiThemeProvider>
 
                     </div>

@@ -8,7 +8,8 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state= {
-            results:{}
+            results:{},
+            filesToBeSent:{}
         }
     }
 
@@ -17,13 +18,20 @@ class HomePage extends Component {
             results:value
         });
     }
+    sendTable(value){
+        this.setState({
+            filesToBeSent:value
+        });
+     }
 
     render() {
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <Upload callUpdate={this.updateState.bind(this)}/>
-                    <Classification result={this.state.results}/>
+                    <Upload callUpdate={this.updateState.bind(this)} callTable={this.sendTable.bind(this)}/>
+
+                    <Classification result={this.state.results} formData={this.state.filesToBeSent}/>
+                    {/*<Classification result={this.state.filesToBeSent}/>*/}
                 </div>
             </div>
         );
