@@ -9,12 +9,7 @@ import SignOutButton from './SignOut';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import '../../App.css'
 import {white} from 'material-ui/styles/colors';
-import DrawerSimpleExample from "./DrawerSimpleExample";
-import DrawerUndockedExample from "./OpenDrawer";
 import {Drawer, MenuItem} from "material-ui";
-
-import Foo from "./Foo";
-import Bar from "./Bar";
 
 
 
@@ -27,9 +22,6 @@ const muiTheme = getMuiTheme({
  * This example uses an [IconButton](/#/components/icon-button) on the left, has a clickable `title`
  * through the `onClick` property, and a [FlatButton](/#/components/flat-button) on the right.
  */
-function handleIconClick() {
-    alert("Hello! I am an alert box!!");
-}
 
 
 

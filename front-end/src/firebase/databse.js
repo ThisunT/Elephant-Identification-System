@@ -20,7 +20,14 @@ export const onceGetUsers = function(id){
     return userRef.once('value').then(function(snapshot) {
         return snapshot.val();
     });
+};
 
+export const updateProcess = function (id,value) {
+    let userRef = database.ref('users').child(`${id}`).child('processes');
+    if (userRef.child(0)){
+        userRef.child(0).remove();
+    }
+    return userRef.push(value);
 };
 
 

@@ -1,193 +1,329 @@
-import React, {Component} from 'react';
-import {
-    Table,
-    TableBody,
-    TableFooter,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
-
-const styles = {
-    propContainer: {
-        width: 200,
-        overflow: 'hidden',
-        margin: '20px auto 0',
-    },
-    propToggleHeader: {
-        margin: '20px auto 10px',
-    },
-};
-  // var filesToBeSent=this.state.filesToBeSent;
-  //   for(var i in filesToBeSent){
-  //       filesToBeSent[i][0].name
-  //   }
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 
+function createData(array) {
+    const data = [];
+    let i;
+    for (i=0;i<array.length;i++){
+        data.push(getRow(array[i][0],array[i][0],array[i][1]));
+    }
+    return data;
+}
 
+let counter = 0;
+function getRow(name, image, count) {
+    counter += 1;
+    return { id: counter, name, image, count};
+}
 
-
-
-const tableData = [
-    {
-        // name: filesToBeSent[i][0].name,
-        status: 'There is an elephant.',
-    },
-
+const columnData = [
+    { id: 'name', disablePadding: true, label: 'Image Name' },
+    { id: 'image', disablePadding: false, label: 'Image' },
+    { id: 'count', disablePadding: false, label: 'Elephant Count' }
 ];
 
-/**
- * A more complex example, allowing the table height to be set, and key boolean properties to be toggled.
- */
-export default class ResultsTable extends Component {
-    state = {
-        fixedHeader: true,
-        fixedFooter: false,
-        stripedRows: false,
-        showRowHover: false,
-        selectable: true,
-        multiSelectable: true,
-        enableSelectAll: false,
-        deselectOnClickaway: true,
-        showCheckboxes: true,
-        height: '300px',
-    };
-
-    handleToggle = (event, toggled) => {
-        this.setState({
-            [event.target.name]: toggled,
-        });
-    };
-
-    handleChange = (event) => {
-        this.setState({height: event.target.value});
+class EnhancedTableHead extends React.Component {
+    createSortHandler = property => event => {
+        this.props.onRequestSort(event, property);
     };
 
     render() {
-        return (
-            <div>
-                <Table
-                    height={this.state.height}
-                    fixedHeader={this.state.fixedHeader}
-                    fixedFooter={this.state.fixedFooter}
-                    selectable={this.state.selectable}
-                    multiSelectable={this.state.multiSelectable}
-                    name={this.props.formData}
-                >
-                    <TableHeader
-                        displaySelectAll={this.state.showCheckboxes}
-                        adjustForCheckbox={this.state.showCheckboxes}
-                        enableSelectAll={this.state.enableSelectAll}
-                    >
-                        <TableRow>
-                            <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center'}}>
-                                Results
-                            </TableHeaderColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody
-                        displayRowCheckbox={this.state.showCheckboxes}
-                        deselectOnClickaway={this.state.deselectOnClickaway}
-                        showRowHover={this.state.showRowHover}
-                        stripedRows={this.state.stripedRows}
-                    >
-                        {tableData.map( (row, index) => (
-                            <TableRow key={index}>
-                                <TableRowColumn>{index}</TableRowColumn>
-                                <TableRowColumn>{row.name}</TableRowColumn>
-                                <TableRowColumn>{row.status}</TableRowColumn>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                    <TableFooter
-                        adjustForCheckbox={this.state.showCheckboxes}
-                    >
-                        {/*<TableRow>*/}
-                            {/*<TableRowColumn>ID</TableRowColumn>*/}
-                            {/*<TableRowColumn>Name</TableRowColumn>*/}
-                            {/*<TableRowColumn>Status</TableRowColumn>*/}
-                        {/*</TableRow>*/}
-                        {/*<TableRow>*/}
-                            {/*<TableRowColumn colSpan="3" style={{textAlign: 'center'}}>*/}
-                                {/*Super Footer*/}
-                            {/*</TableRowColumn>*/}
-                        {/*</TableRow>*/}
-                    </TableFooter>
-                </Table>
+        const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
 
-                <div style={styles.propContainer}>
-                    {/*<h3>Table Properties</h3>*/}
-                    {/*<TextField*/}
-                        {/*floatingLabelText="Table Body Height"*/}
-                        {/*defaultValue={this.state.height}*/}
-                        {/*onChange={this.handleChange}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="fixedHeader"*/}
-                        {/*label="Fixed Header"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.fixedHeader}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="fixedFooter"*/}
-                        {/*label="Fixed Footer"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.fixedFooter}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="selectable"*/}
-                        {/*label="Selectable"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.selectable}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="multiSelectable"*/}
-                        {/*label="Multi-Selectable"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.multiSelectable}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="enableSelectAll"*/}
-                        {/*label="Enable Select All"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.enableSelectAll}*/}
-                    {/*/>*/}
-                    {/*<h3 style={styles.propToggleHeader}>TableBody Properties</h3>*/}
-                    {/*<Toggle*/}
-                        {/*name="deselectOnClickaway"*/}
-                        {/*label="Deselect On Clickaway"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.deselectOnClickaway}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="stripedRows"*/}
-                        {/*label="Stripe Rows"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.stripedRows}*/}
-                    {/*/>*/}
-                    {/*<Toggle*/}
-                        {/*name="showRowHover"*/}
-                        {/*label="Show Row Hover"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.showRowHover}*/}
-                    {/*/>*/}
-                    {/*<h3 style={styles.propToggleHeader}>Multiple Properties</h3>*/}
-                    {/*<Toggle*/}
-                        {/*name="showCheckboxes"*/}
-                        {/*label="Show Checkboxes"*/}
-                        {/*onToggle={this.handleToggle}*/}
-                        {/*defaultToggled={this.state.showCheckboxes}*/}
-                    {/*/>*/}
-                </div>
-            </div>
+        return (
+            <TableHead>
+                <TableRow>
+                    <TableCell padding="checkbox">
+                        <Checkbox
+                            indeterminate={numSelected > 0 && numSelected < rowCount}
+                            checked={numSelected === rowCount}
+                            onChange={onSelectAllClick}
+                        />
+                    </TableCell>
+                    {columnData.map(column => {
+                        return (
+                            <TableCell
+                                key={column.id}
+                                numeric={column.numeric}
+                                padding={column.disablePadding ? 'none' : 'default'}
+                                sortDirection={orderBy === column.id ? order : false}
+                            >
+                                <Tooltip
+                                    title="Sort"
+                                    placement={column.numeric ? 'bottom-end' : 'bottom-start'}
+                                    enterDelay={300}
+                                >
+                                    <TableSortLabel
+                                        active={orderBy === column.id}
+                                        direction={order}
+                                        onClick={this.createSortHandler(column.id)}
+                                    >
+                                        {column.label}
+                                    </TableSortLabel>
+                                </Tooltip>
+                            </TableCell>
+                        );
+                    }, this)}
+                </TableRow>
+            </TableHead>
         );
     }
 }
+
+EnhancedTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.string.isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
+};
+
+const toolbarStyles = theme => ({
+    root: {
+        paddingRight: theme.spacing.unit,
+    },
+    highlight:
+        theme.palette.type === 'light'
+            ? {
+                color: theme.palette.secondary.main,
+                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+            }
+            : {
+                color: theme.palette.text.primary,
+                backgroundColor: theme.palette.secondary.dark,
+            },
+    spacer: {
+        flex: '1 1 100%',
+    },
+    actions: {
+        color: theme.palette.text.secondary,
+    },
+    title: {
+        flex: '0 0 auto',
+    },
+});
+
+let EnhancedTableToolbar = props => {
+    const { numSelected, classes } = props;
+
+    return (
+        <Toolbar
+            className={classNames(classes.root, {
+                [classes.highlight]: numSelected > 0,
+            })}
+        >
+            <div className={classes.title}>
+                {numSelected > 0 ? (
+                    <Typography color="inherit" variant="subheading">
+                        {numSelected} selected
+                    </Typography>
+                ) : (
+                    <Typography variant="title" id="tableTitle">
+                        Nutrition
+                    </Typography>
+                )}
+            </div>
+            <div className={classes.spacer} />
+            <div className={classes.actions}>
+                {numSelected > 0 ? (
+                    <Tooltip title="Delete">
+                        <IconButton aria-label="Delete">
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                ) : (
+                    <Tooltip title="Filter list">
+                        <IconButton aria-label="Filter list">
+                            <FilterListIcon />
+                        </IconButton>
+                    </Tooltip>
+                )}
+            </div>
+        </Toolbar>
+    );
+};
+
+EnhancedTableToolbar.propTypes = {
+    classes: PropTypes.object.isRequired,
+    numSelected: PropTypes.number.isRequired,
+};
+
+EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
+
+const styles = theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+    },
+    table: {
+        minWidth: 1020,
+    },
+    tableWrapper: {
+        overflowX: 'auto',
+    },
+});
+
+class EnhancedTable extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            order: 'asc',
+            orderBy: 'image',
+            selected: [],
+            data:
+                createData(this.props.results).sort((a, b) => (a.image < b.image ? -1 : 1)),
+            page: 0,
+            rowsPerPage: 5,
+        };
+    }
+
+    handleRequestSort = (event, property) => {
+        const orderBy = property;
+        let order = 'desc';
+
+        if (this.state.orderBy === property && this.state.order === 'desc') {
+            order = 'asc';
+        }
+
+        const data =
+            order === 'desc'
+                ? this.state.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+                : this.state.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+
+        this.setState({ data, order, orderBy });
+    };
+
+    handleSelectAllClick = (event, checked) => {
+        if (checked) {
+            this.setState({ selected: this.state.data.map(n => n.id) });
+            return;
+        }
+        this.setState({ selected: [] });
+    };
+
+    handleClick = (event, id) => {
+        const { selected } = this.state;
+        const selectedIndex = selected.indexOf(id);
+        let newSelected = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
+        }
+
+        this.setState({ selected: newSelected });
+    };
+
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    };
+
+    handleChangeRowsPerPage = event => {
+        this.setState({ rowsPerPage: event.target.value });
+    };
+
+    isSelected = id => this.state.selected.indexOf(id) !== -1;
+
+    render() {
+        const { classes } = this.props;
+        const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
+        return (
+            <Paper className={classes.root}>
+                <EnhancedTableToolbar numSelected={selected.length} />
+                <div className={classes.tableWrapper}>
+                    <Table className={classes.table} aria-labelledby="tableTitle">
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onSelectAllClick={this.handleSelectAllClick}
+                            onRequestSort={this.handleRequestSort}
+                            rowCount={data.length}
+                        />
+                        <TableBody>
+                            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
+                                const isSelected = this.isSelected(n.id);
+                                return (
+                                    <TableRow
+                                        hover
+                                        onClick={event => this.handleClick(event, n.id)}
+                                        role="checkbox"
+                                        aria-checked={isSelected}
+                                        tabIndex={-1}
+                                        key={n.id}
+                                        selected={isSelected}
+                                    >
+                                        <TableCell padding="checkbox">
+                                            <Checkbox checked={isSelected} />
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" padding="none">
+                                            {n.name}
+                                        </TableCell>
+                                        <TableCell >{n.image}</TableCell>
+                                        <TableCell >{n.count}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: 49 * emptyRows }}>
+                                    <TableCell colSpan={4} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+                <TablePagination
+                    component="div"
+                    count={data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    backIconButtonProps={{
+                        'aria-label': 'Previous Page',
+                    }}
+                    nextIconButtonProps={{
+                        'aria-label': 'Next Page',
+                    }}
+                    onChangePage={this.handleChangePage}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                />
+            </Paper>
+        );
+    }
+}
+
+EnhancedTable.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(EnhancedTable);

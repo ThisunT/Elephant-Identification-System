@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { auth } from '../../firebase/index';
+import { auth,database } from '../../firebase/index';
 
 import * as routes from '../../constants/routes';
 
@@ -49,24 +49,31 @@ class SignUpForm extends Component {
         const {
             username,
             email,
-            passwordOne,
+            passwordOne
         } = this.state;
 
         const {
-            history,
+            history
         } = this.props;
 
         auth.doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
-                this.setState(() => ({ ...INITIAL_STATE }));
-                history.push(routes.HOME);
+                // Create a user in Firebase Database
+                database.doCreateUser(authUser.uid, username, email)
+                    .then(() => {
+                        this.setState(() => ({ ...INITIAL_STATE }));
+                        history.push(routes.HOME);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.setState(byPropKey('error', error));
+                    });
             })
             .catch(error => {
                 this.setState(byPropKey('error', error));
             });
-
         event.preventDefault();
-    }
+    };
 
     render() {
         const {
@@ -86,11 +93,11 @@ class SignUpForm extends Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <TextField
-                    floatingLabelText="Username"
+                    floatingLabelText="Name"
                     value={username}
                     onChange={event => this.setState(byPropKey('username', event.target.value))}
                     type="text"
-                    hintText="Username"
+                    hintText="Name"
                 /><br />
                 <TextField
                     floatingLabelText="Email Address"
