@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { auth } from '../../firebase/index';
+import { auth, database} from '../../firebase/index';
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
@@ -43,6 +43,11 @@ class PasswordChangeForm extends Component {
         const isInvalid =
             passwordOne !== passwordTwo ||
             passwordOne === '';
+
+
+        database.onceGetUsers(this.props.authUser.uid).then(function(result){
+            console.log(result);
+        });
 
         return (
             <form onSubmit={this.onSubmit}>

@@ -1,0 +1,19 @@
+.fadeOut{
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity:0;
+    width:0;
+    height:0;
+    transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+
+}
+.fadeIn{
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width:100px;
+    height:100px;
+    transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+
+}
