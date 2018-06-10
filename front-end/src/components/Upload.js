@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dropzone from 'react-dropzone';
 import FontIcon from 'material-ui/FontIcon';
-import {blue500} from 'material-ui/styles/colors';
-import {RaisedButton} from "material-ui";
+import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import {RaisedButton, Toolbar} from "material-ui";
 import axios from 'axios';
-// import './dropzone.css'
+<script src="dropzone.js"></script>
+
+
 
 class Upload extends Component {
     constructor(props){
@@ -17,12 +19,6 @@ class Upload extends Component {
         }
     }
 
-    updateFiles(value){
-        this.setState({
-            filesPreview:value,
-            filesToBeSent:value
-        });
-    }
 
     handleClick(event){
         const update = this.props;
@@ -41,7 +37,6 @@ class Upload extends Component {
             axios.post(url, formData,config)
                 .then(function (response) {
                     update.callUpdate(response);
-                    update.updateUploadState(1,true);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -63,12 +58,13 @@ class Upload extends Component {
                     <div>
                         {filesToBeSent[i][0].name}
                         <MuiThemeProvider>
-                            <a onClick={this.updateFiles([])}><FontIcon
+                            <a href="#"><FontIcon
                                 className="material-icons customstyle"
                                 color={blue500}
                                 styles={{fontWeight: 1}}
                             >clear</FontIcon></a>
                         </MuiThemeProvider>
+
                     </div>
                 )
             }
@@ -79,36 +75,27 @@ class Upload extends Component {
         }
     }
     render() {
-        var props=this.props;
-        if(props.uploadvisible){
-            return (
-                <div className="App">
+        return (
+            <div className="App">
 
-                    <center>
-                        <div style={{marginBottom: '5%'}}></div>
-                        <Dropzone onDrop={(files) => this.onDrop(files)}>
-                            <div>Try dropping the file, or click to select the file to upload.</div>
-                        </Dropzone>
-                        <div>
-                            {this.state.filesPreview}
-                        </div>
+                <center>
+                    <div style={{marginBottom: '5%'}}></div>
+                    <Dropzone onDrop={(files) => this.onDrop(files)}>
+                        <div>Try dropping the file, or click to select the file to upload.</div>
+                    </Dropzone>
+                    <div>
+                        {this.state.filesPreview}
+                    </div>
 
-                        <div>
-                            {this.state.printingmessage}
-                        </div>
-                        <MuiThemeProvider>
-                            <RaisedButton label="Check Image" primary={true} style={{margin: '2%', align:'centre'}} onClick={(event) => this.handleClick(event)}/>
-                        </MuiThemeProvider>
-                    </center>
-                </div>
-            );
-        }
-        else {
-            return(
-                <div></div>
-            )
-        }
-
+                    <div>
+                        {this.state.printingmessage}
+                    </div>
+                    <MuiThemeProvider>
+                        <RaisedButton label="Check Image" primary={true} style={{margin: '2%'}} onClick={(event) => this.handleClick(event)}/>
+                    </MuiThemeProvider>
+                </center>
+            </div>
+        );
     }
 }
 

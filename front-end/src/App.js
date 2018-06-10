@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
@@ -9,9 +9,9 @@ import LandingPage from './components/authentication/Landing';
 import SignUpPage from './components/authentication/SignUp';
 import SignInPage from './components/authentication/SignIn';
 import PasswordForgetPage from './components/authentication/PasswordForget';
+import PasswordChangePage from './components/authentication/PasswordChange';
 import HomePage from './components/authentication/Home';
 import AccountPage from './components/authentication/Account';
-import {PersistentDrawer} from './components/authentication/DrawerSimpleExample';
 
 import * as routes from './constants/routes';
 import withAuthentication from './components/authentication/withAuthentication';
@@ -24,25 +24,21 @@ const muiTheme = getMuiTheme({
     fontFamily: font
 });
 
-class App extends Component{
-    render(){
-        return(
-            <Router>
-                <div>
-                    <Navigation />
+const App = () =>
+    <Router>
+        <div>
+            <Navigation />
 
-                    <MuiThemeProvider muiTheme={muiTheme}>
-                        <Route exact path={routes.LANDING} component={() => <LandingPage />} />
-                        <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
-                        <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
-                        <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-                        <Route exact path={routes.HOME} component={() => <HomePage />} />
-                        <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
-                        <Route exact path={routes.PERSISTENT_TEST} component={() => <PersistentDrawer />} />
-                    </MuiThemeProvider>
-                </div>
-            </Router>
-        )
-    }
-}
+            <MuiThemeProvider muiTheme={muiTheme}>
+                <Route exact path={routes.LANDING} component={() => <LandingPage />} />
+                <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
+                <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
+                <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
+                <Route exact path={routes.PASSWORD_CHANGE} component={() => <PasswordChangePage />} />
+                <Route exact path={routes.HOME} component={() => <HomePage />} />
+                <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+            </MuiThemeProvider>
+        </div>
+    </Router>
+
 export default withAuthentication(App);

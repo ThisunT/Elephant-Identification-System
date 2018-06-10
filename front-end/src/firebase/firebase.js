@@ -1,6 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
 
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 
 // Initialize Firebase
 
@@ -19,9 +20,7 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
-const database = firebase.database();
 
 export {
-    auth,
-    database
+    auth
 };
