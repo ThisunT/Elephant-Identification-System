@@ -6,6 +6,9 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {blue500, cyan500} from 'material-ui/styles/colors';
 import '../../App.css'
+
+import * as routes from "../../constants/routes";
+
 const font = "'Varela Round', sans-serif";
 
 const style = {
@@ -84,6 +87,12 @@ class PasswordForgetForm extends Component {
                   <RaisedButton primary={true} style={{fontFamily: font, margin: '5%'}} type="submit">
                         Reset
                   </RaisedButton>
+
+                  <Link to={routes.ACCOUNT}>
+                        <RaisedButton primary={true} style={{fontFamily: font, margin: '5%'}} >
+                              Back
+                        </RaisedButton>
+                  </Link>
                 {/*<input*/}
                     {/*value={this.state.email}*/}
                     {/*onChange={event => this.setState(byPropKey('email', event.target.value))}*/}

@@ -4,6 +4,8 @@ import { auth } from '../../firebase/index';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {cyan500} from "material-ui/styles/colors";
+import {Link} from 'react-router-dom';
+import * as routes from "../../constants/routes";
 
 const font = "'Varela Round', sans-serif";
 
@@ -96,6 +98,12 @@ class PasswordChangeForm extends Component {
                         <RaisedButton primary={true} style={{fontFamily: font, margin: '5%'}} type="submit">
                               Reset
                         </RaisedButton>
+
+                        <Link to={routes.ACCOUNT}>
+                              <RaisedButton primary={true} style={{fontFamily: font, margin: '5%'}} >
+                                    Back
+                              </RaisedButton>
+                        </Link>
                       {/*<input*/}
                           {/*value={passwordOne}*/}
                           {/*onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}*/}

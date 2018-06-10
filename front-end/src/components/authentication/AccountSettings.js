@@ -49,7 +49,7 @@ class PopoverExampleSimple extends React.Component {
                               onRequestClose={this.handleRequestClose}
                         >
                               <Menu>
-
+                                    <Link to={routes.PROFILE_UPDATE}><MenuItem primaryText="Profile Update" /></Link>
                                     <Link to={routes.PASSWORD_CHANGE}><MenuItem primaryText="Change Password" /></Link>
                                     <Link to={routes.PASSWORD_FORGET}><MenuItem primaryText="Reset Password" /></Link>
                                     <SignOutButton/>

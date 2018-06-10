@@ -5,4 +5,5 @@ export const HOME = '/home';
 export const ACCOUNT = '/account';
 export const PASSWORD_FORGET = '/pw-forget';
 export const PASSWORD_CHANGE = '/pw-change';
+export const PROFILE_UPDATE = '/profile-update';
 

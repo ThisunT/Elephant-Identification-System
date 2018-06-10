@@ -6,8 +6,18 @@ import Paper from 'material-ui/Paper';
 import '../../App.css';
 import {cyan500} from 'material-ui/styles/colors';
 import PopoverExampleSimple from './AccountSettings';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+
+
+import {Tabs, Tab} from 'material-ui/Tabs';
+
+const styles = {
+      headline: {
+            fontSize: 24,
+            paddingTop: 16,
+            marginBottom: 12,
+            fontWeight: 400,
+      },
+};
 
 const font = "'Varela Round', sans-serif";
 
@@ -33,38 +43,34 @@ const AccountPage = () =>
                               <div align="center">
                                     <Paper style={style} zDepth={2} >
                                           <AvatarImage/>
-                                          <h1 style={{font, color: cyan500 ,fontSize:20 }}> My Account: {authUser.email}</h1>
+                                          <h1 style={{font, color: cyan500 ,fontSize:20 }}>{authUser.email}</h1>
                                           <br />
-                                          <h1 style={{font, color: cyan500 ,fontSize:30 }}>PROFILE</h1>
+                                          <h1 style={{font, color: cyan500 ,fontSize:30 }}> name </h1>
                                           <br />
-                                          <TextField
-                                                hintText="User Name"
-                                          /><br />
-                                          <TextField
-                                                hintText="Email"
-                                          /><br />
-                                          <TextField
-                                                hintText="Birthday"
-                                          /><br />
-                                          <TextField
-                                                hintText="About"
-                                          /><br />
-                                          <TextField
-                                                hintText="College"
-                                          /><br />
-                                          <TextField
-                                                hintText="Country"
-                                          /><br />
-                                          <TextField
-                                                hintText="Processes"
-                                          /><br />
-                                          <TextField
-                                                hintText="Locations"
-                                          /><br />
+                                          <h1 style={{font, color: cyan500 ,fontSize:30 }}> about </h1>
 
-                                          <RaisedButton primary={true} style={{fontFamily: font, margin: '5%'}} type="submit">
-                                                Update
-                                          </RaisedButton>
+                                          <Tabs>
+                                                <Tab label="Locations" >
+                                                      <div>
+                                                            <h2 style={styles.headline}>Location Details</h2>
+                                                            <p>
+                                                                  This is an example tab.
+                                                            </p>
+
+                                                      </div>
+                                                </Tab>
+                                                <Tab label="Processes" >
+                                                      <div>
+                                                            <h2 style={styles.headline}>Processes Status</h2>
+                                                            <p>
+                                                                  This is another example tab.
+                                                            </p>
+                                                      </div>
+                                                </Tab>
+                                          </Tabs>
+
+
+
                                     </Paper>
                               </div>
 

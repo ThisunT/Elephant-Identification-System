@@ -12,6 +12,7 @@ import PasswordForgetPage from './components/authentication/PasswordForget';
 import PasswordChangePage from './components/authentication/PasswordChange';
 import HomePage from './components/authentication/Home';
 import AccountPage from './components/authentication/Account';
+import AccountUpdate from './components/authentication/AccountUpdate';
 
 import * as routes from './constants/routes';
 import withAuthentication from './components/authentication/withAuthentication';
@@ -37,6 +38,7 @@ const App = () =>
                 <Route exact path={routes.PASSWORD_CHANGE} component={() => <PasswordChangePage />} />
                 <Route exact path={routes.HOME} component={() => <HomePage />} />
                 <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+                <Route exact path={routes.PROFILE_UPDATE} component={() => <AccountUpdate />} />
             </MuiThemeProvider>
         </div>
     </Router>
