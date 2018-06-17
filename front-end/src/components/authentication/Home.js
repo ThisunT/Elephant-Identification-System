@@ -3,12 +3,20 @@ import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
 import Upload from "../Upload";
 import Classification from "../Classification";
+import ProcessButton from "../ProcessButton"
+import './home.css';
 
 class HomePage extends Component {
     constructor(props){
         super(props);
         this.state= {
-            results:{}
+            open: false,
+            showUpload: true,
+            uploadVisible: true,
+            processVisible: false,
+            results:{},
+            uploadStatus:0,
+            path:null
         }
     }
 
@@ -18,12 +26,40 @@ class HomePage extends Component {
         });
     }
 
+    updatePath(value){
+        this.setState({
+            path:value
+        });
+    }
+
+    updateShowUpdate(value){
+        this.setState({
+            showUpload:value
+        });
+    }
+
+    updateUploadState(value,booleanValue){
+        this.setState({
+            uploadStatus:value,
+            uploadVisible: false,
+            processVisible: booleanValue
+        });
+    }
+
     render() {
+        console.log(this.state.uploadStatus);
         return (
-            <div className="row">
-                <div className="col-md-12">
-                    <Upload callUpdate={this.updateState.bind(this)}/>
-                    <Classification result={this.state.results}/>
+            <div>
+                <div className="col-md-12" align="centre">
+                    <div className={this.state.uploadVisible?'fadeIn':'fadeOut'} >
+                        <Upload style={{marginRight:"auto",marginLeft:"auto"}} callUpdate={this.updatePath.bind(this)} updateUploadState={this.updateUploadState.bind(this)} uploadvisible={this.state.showUpload}/>
+                    </div>
+                    <div className={this.state.processVisible?'fadeIn':'fadeOut'} >
+                        <ProcessButton path={this.state.path} updateState={this.updateState.bind(this)} uploadState={this.state.uploadStatus} updateUploadState={this.updateUploadState.bind(this)} changeUploadShow={this.updateShowUpdate.bind(this)}/>
+                    </div>
+                    <div>
+                        <Classification result={this.state.results}/>
+                    </div>
                 </div>
             </div>
         );
