@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dropzone from 'react-dropzone';
 import FontIcon from 'material-ui/FontIcon';
-import {blue500} from 'material-ui/styles/colors';
-import {RaisedButton} from "material-ui";
+import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import {FlatButton, RaisedButton} from "material-ui";
 import axios from 'axios';
 import './dropzone.css'
 
+const styledropzone = {
+    width: 300,
+    height: 300,
+    borderWidth: 2,
+    borderColor: '#666',
+    borderStyle: 'dashed',
+    borderRadius: 5,
+    position: "",
+
+};
 class Upload extends Component {
     constructor(props){
         super(props);
@@ -22,6 +32,17 @@ class Upload extends Component {
             filesPreview:value,
             filesToBeSent:value
         });
+    }
+    handleClear(event){
+        var array = [this.state.filesToBeSent]; // make a separate copy of the array
+        var index = array.indexOf(event.target.value)
+        array.splice(index, 1);
+        this.setState({filesToBeSent: array});
+
+        alert("You cannot add more files here");
+        document.getElementById('day" + i + "').style.display ='none';
+
+
     }
 
     handleClick(event){
@@ -60,14 +81,11 @@ class Upload extends Component {
             var filesPreview=[];
             for(var i in filesToBeSent){
                 filesPreview.push(
-                    <div>
+                    <div id='day" + i + "'>
                         {filesToBeSent[i][0].name}
                         <MuiThemeProvider>
-                            <a onClick={this.updateFiles([])}><FontIcon
-                                className="material-icons customstyle"
-                                color={blue500}
-                                styles={{fontWeight: 1}}
-                            >clear</FontIcon></a>
+                            <FlatButton label="Clear" primary={true} onClick={(event) => this.handleClear(event)} />
+
                         </MuiThemeProvider>
                     </div>
                 )
@@ -85,11 +103,22 @@ class Upload extends Component {
                 <div className="App">
 
                     <center>
-                        <div style={{marginBottom: '5%'}}></div>
-                        <Dropzone accept="image/jpeg, image/png" onDrop={(files) => this.onDrop(files)}>
+                        <div style={{marginBottom: '5%'}} align="center"></div>
+                        <Dropzone accept=".jpg,.png,.zip" style={styledropzone} onDrop={(files) => this.onDrop(files)}>
+                            {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
+                                if (isDragActive) {
+                                    return "This file is authorized";
+                                }
+                                if (isDragReject) {
+                                    return "This file is not authorized";
+                                }
+                                return acceptedFiles.length || rejectedFiles.length
+                                    ? `Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`
+                                    : "Try dropping some files.";
+                            }}
                             <div>
                                 <p>Try dropping the file, or click to select the file to upload.</p>
-                                <p>Only *.jpeg and *.png images will be accepted</p>
+                                <p>Only *.jpg,*.png and *.zip files will be accepted</p>
                             </div>
                         </Dropzone>
                         <div>
@@ -100,7 +129,9 @@ class Upload extends Component {
                             {this.state.printingmessage}
                         </div>
                         <MuiThemeProvider>
-                            <RaisedButton label="Check Image" primary={true} style={{margin: '2%', align:'centre'}} onClick={(event) => this.handleClick(event)}/>
+
+                            <br/>
+                            <RaisedButton label="Check Image" primary={true} style={{margin: '1%', align:'centre'}} onClick={(event) => this.handleClick(event)}/>
                         </MuiThemeProvider>
                     </center>
                 </div>

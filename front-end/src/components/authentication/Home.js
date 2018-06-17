@@ -50,10 +50,11 @@ class HomePage extends Component {
         console.log(this.state.uploadStatus);
         return (
             <div>
-                <div className="col-md-12" align="centre">
+                <div className="col-md-12" align="center">
                     <div className={this.state.uploadVisible?'fadeIn':'fadeOut'} >
                         <Upload style={{marginRight:"auto",marginLeft:"auto"}} callUpdate={this.updatePath.bind(this)} updateUploadState={this.updateUploadState.bind(this)} uploadvisible={this.state.showUpload}/>
                     </div>
+                    <div></div>
                     <div className={this.state.processVisible?'fadeIn':'fadeOut'} >
                         <ProcessButton path={this.state.path} updateState={this.updateState.bind(this)} uploadState={this.state.uploadStatus} updateUploadState={this.updateUploadState.bind(this)} changeUploadShow={this.updateShowUpdate.bind(this)}/>
                     </div>
