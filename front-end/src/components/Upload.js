@@ -5,7 +5,7 @@ import FontIcon from 'material-ui/FontIcon';
 import {blue500} from 'material-ui/styles/colors';
 import {RaisedButton} from "material-ui";
 import axios from 'axios';
-// import './dropzone.css'
+import './dropzone.css'
 
 class Upload extends Component {
     constructor(props){
@@ -86,8 +86,11 @@ class Upload extends Component {
 
                     <center>
                         <div style={{marginBottom: '5%'}}></div>
-                        <Dropzone onDrop={(files) => this.onDrop(files)}>
-                            <div>Try dropping the file, or click to select the file to upload.</div>
+                        <Dropzone accept="image/jpeg, image/png" onDrop={(files) => this.onDrop(files)}>
+                            <div>
+                                <p>Try dropping the file, or click to select the file to upload.</p>
+                                <p>Only *.jpeg and *.png images will be accepted</p>
+                            </div>
                         </Dropzone>
                         <div>
                             {this.state.filesPreview}

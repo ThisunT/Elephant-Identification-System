@@ -8,3 +8,4 @@ import "../node_modules/react-responsive-carousel/lib/styles/carousel.min.css";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
+

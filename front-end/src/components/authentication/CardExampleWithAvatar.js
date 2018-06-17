@@ -9,28 +9,27 @@ const stylecard = {
 
 
 };
+const styletitle = {
+   margin: '1%',
+}
 
 const CardExampleWithAvatar = () => (
     <Card style={stylecard}>
-        <CardHeader
-            title="Elephant Population"
-            subtitle="Sri Lanka"
+        <CardHeader style={styletitle}
+            title="Elephant Identification System"
+            // subtitle="Sri Lanka"
 
         />
         <CardMedia
-            overlay={<CardTitle title="Tensorflow" subtitle="Details" />}
+            overlay={<CardTitle title="Elphas" subtitle="" />}
         >
             <img src={require('../images/card1.jpg')} alt="" />
         </CardMedia>
-        <CardTitle title="Card title" subtitle="Card subtitle" />
+        {/*<CardTitle title="Card title"/>*/}
         <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat.
+            An efficient and effective way of recognizing elephants using image classification
         </CardText>
-        <CardActions>
-            <FlatButton label="Action1" />
-            <FlatButton label="Action2" />
-        </CardActions>
+
     </Card>
 );
 
