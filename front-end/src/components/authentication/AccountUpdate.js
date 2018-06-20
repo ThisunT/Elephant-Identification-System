@@ -30,7 +30,7 @@ const AccountPage = () =>
                   <div>
                         <div className="row">
                               <div className="col-lg-4">
-                                    <img src={require('../images/profile.jpg')} width="1500px" />
+                                    <img src={require('../images/profile.jpg')} width="2800px" />
                               </div>
 
                               <div className="col-lg-4">
