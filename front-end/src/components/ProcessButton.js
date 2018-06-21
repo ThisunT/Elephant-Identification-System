@@ -8,7 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "@material-ui/core/es/Button/Button";
 import Slide from '@material-ui/core/Slide';
-import * as fs from "fs";
 
 
 
@@ -27,32 +26,10 @@ class ProcessButton extends Component {
         this.handleClose();
         var path = props.path.data;
         const url = 'http://localhost:5000/process/'+path;
-        const imgUrl = 'http://localhost:5000/getImage/'+path;
-
 
         axios.post(url)
             .then(function (response) {
-                let i;
-                const images = response.data;
-                for (i=0;i<images.length;i++){
-                    axios.get(imgUrl+'/'+images[i][0])
-                        .then(function (image) {
-                            // convert to Base64
-                            console.log(image);
-                            // const buffer = Buffer.from(image.data, 'utf8');
-                            // fs.writeFileSync('/', buffer);
 
-                            var b64Response = window.btoa(unescape(encodeURIComponent(image.data)));
-                            console.log(b64Response);
-                            // create an image
-                            var outputImg = document.getElementById('image');
-                            outputImg.src = 'data:image/jpg;base64,'+b64Response;
-
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        })
-                }
                 setTimeout(function() {
                     props.updateState(response);
                 }, 1400);
@@ -92,7 +69,6 @@ class ProcessButton extends Component {
         if(props.uploadState===1){
             return (
                 <div>
-                    <img src="" id="image" />
                     <Button variant="raised" color="secondary" onClick={this.handleClickOpen}>Let's move on</Button>
                     <Dialog
                         open={this.state.open}

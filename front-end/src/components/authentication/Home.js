@@ -5,6 +5,8 @@ import Upload from "../Upload";
 import Classification from "../Classification";
 import ProcessButton from "../ProcessButton"
 import './home.css';
+import { Parallax, Background } from 'react-parallax';
+
 
 class HomePage extends Component {
     constructor(props){
@@ -47,19 +49,26 @@ class HomePage extends Component {
     }
 
     render() {
-        console.log(this.state.uploadStatus);
         return (
             <div>
-                <div className="col-md-12" align="center">
+                <Parallax
+
+                    bgImage={require('../images/pa1.jpg')}
+                    bgImageAlt="the cat"
+                    strength={200}
+                >
+
+                    <div style={{ height: '640px' }} />
+                </Parallax>
+                <div className="col-md-12" align="centre">
                     <div className={this.state.uploadVisible?'fadeIn':'fadeOut'} >
                         <Upload style={{marginRight:"auto",marginLeft:"auto"}} callUpdate={this.updatePath.bind(this)} updateUploadState={this.updateUploadState.bind(this)} uploadvisible={this.state.showUpload}/>
                     </div>
-                    <div></div>
                     <div className={this.state.processVisible?'fadeIn':'fadeOut'} >
                         <ProcessButton path={this.state.path} updateState={this.updateState.bind(this)} uploadState={this.state.uploadStatus} updateUploadState={this.updateUploadState.bind(this)} changeUploadShow={this.updateShowUpdate.bind(this)}/>
                     </div>
                     <div>
-                        <Classification result={this.state.results}/>
+                        <Classification result={this.state.results} path={this.state.path}/>
                     </div>
                 </div>
             </div>

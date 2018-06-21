@@ -13,6 +13,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-dropzone": "^4.2.9",
+    "react-parallax": "^1.8.0",
     "react-responsive-carousel": "^3.1.39",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"

@@ -24,21 +24,22 @@ function createData(array) {
     const data = [];
     let i;
     for (i=0;i<array.length;i++){
-        data.push(getRow(array[i][0],array[i][0],array[i][1]));
+        data.push(getRow(array[i][0],array[i][1], <button>View Image</button>));
     }
     return data;
 }
 
 let counter = 0;
-function getRow(name, image, count) {
+function getRow(name, count, image) {
     counter += 1;
-    return { id: counter, name, image, count};
+    return { id: counter, name, count, image};
 }
 
 const columnData = [
     { id: 'name', disablePadding: true, label: 'Image Name' },
-    { id: 'image', disablePadding: false, label: 'Image' },
-    { id: 'count', disablePadding: false, label: 'Elephant Count' }
+    { id: 'count', disablePadding: false, label: 'Elephant Count' },
+    { id: 'image', disablePadding: false, label: 'Image' }
+
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -67,7 +68,7 @@ class EnhancedTableHead extends React.Component {
                                 padding={column.disablePadding ? 'none' : 'default'}
                                 sortDirection={orderBy === column.id ? order : false}
                             >
-                                <Tooltip
+                                {column.id === 'image' ? null : <Tooltip
                                     title="Sort"
                                     placement={column.numeric ? 'bottom-end' : 'bottom-start'}
                                     enterDelay={300}
@@ -80,6 +81,7 @@ class EnhancedTableHead extends React.Component {
                                         {column.label}
                                     </TableSortLabel>
                                 </Tooltip>
+                                }
                             </TableCell>
                         );
                     }, this)}
@@ -189,12 +191,12 @@ class EnhancedTable extends React.Component {
 
         this.state = {
             order: 'asc',
-            orderBy: 'image',
+            orderBy: 'name',
             selected: [],
             data:
                 createData(this.props.results).sort((a, b) => (a.image < b.image ? -1 : 1)),
             page: 0,
-            rowsPerPage: 5,
+            rowsPerPage: 5
         };
     }
 
@@ -224,6 +226,15 @@ class EnhancedTable extends React.Component {
 
     handleClick = (event, id) => {
         const { selected } = this.state;
+
+        //getting the image name to classification
+        for(var i = this.state.page; i<this.state.rowsPerPage; i++){
+            if(this.state.data[i].id===id){
+                this.props.updateImageSelected(this.state.data[i].name);
+                break;
+            }
+        }
+
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
@@ -290,8 +301,8 @@ class EnhancedTable extends React.Component {
                                         <TableCell component="th" scope="row" padding="none">
                                             {n.name}
                                         </TableCell>
-                                        <TableCell >{n.image}</TableCell>
                                         <TableCell >{n.count}</TableCell>
+                                        <TableCell >{n.image}</TableCell>
                                     </TableRow>
                                 );
                             })}
