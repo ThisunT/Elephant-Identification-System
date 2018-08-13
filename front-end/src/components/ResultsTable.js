@@ -24,7 +24,7 @@ function createData(array) {
     const data = [];
     let i;
     for (i=0;i<array.length;i++){
-        data.push(getRow(array[i][0],array[i][1], <button>View Image</button>));
+        data.push(getRow(array[i][0],array[i][1], null));
     }
     return data;
 }
@@ -196,7 +196,8 @@ class EnhancedTable extends React.Component {
             data:
                 createData(this.props.results).sort((a, b) => (a.image < b.image ? -1 : 1)),
             page: 0,
-            rowsPerPage: 5
+            rowsPerPage: 5,
+            selectedRowId: null
         };
     }
 
@@ -225,15 +226,10 @@ class EnhancedTable extends React.Component {
     };
 
     handleClick = (event, id) => {
+        this.setState({
+            selectedRowId: id
+        });
         const { selected } = this.state;
-
-        //getting the image name to classification
-        for(var i = this.state.page; i<this.state.rowsPerPage; i++){
-            if(this.state.data[i].id===id){
-                this.props.updateImageSelected(this.state.data[i].name);
-                break;
-            }
-        }
 
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
@@ -260,6 +256,16 @@ class EnhancedTable extends React.Component {
 
     handleChangeRowsPerPage = event => {
         this.setState({ rowsPerPage: event.target.value });
+    };
+
+    onViewImageClicked = event => {
+        var id = this.state.selectedRowId;
+        for(var i = this.state.page; i<this.state.rowsPerPage*this.state.page; i++){
+            if(this.state.data[i].id===id){
+                this.props.updateImageSelected(this.state.data[i].name);
+                break;
+            }
+        }
     };
 
     isSelected = id => this.state.selected.indexOf(id) !== -1;
@@ -302,7 +308,7 @@ class EnhancedTable extends React.Component {
                                             {n.name}
                                         </TableCell>
                                         <TableCell >{n.count}</TableCell>
-                                        <TableCell >{n.image}</TableCell>
+                                        <TableCell ><button onClick={(event) => this.onViewImageClicked(event)}>View Image</button></TableCell>
                                     </TableRow>
                                 );
                             })}

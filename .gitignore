@@ -2,3 +2,4 @@
 *.xml
 *.iml
 front-end/node_modules/
+*.xml

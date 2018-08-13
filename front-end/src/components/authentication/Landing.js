@@ -4,6 +4,9 @@ import Paper from 'material-ui/Paper';
 import CardExampleWithAvatar from "./CardExampleWithAvatar";
 import DemoCarousel from "./DemoCarousel";
 
+import "../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css";
+
+
 const font = "'Varela Round', sans-serif";
 
 const style = {
@@ -20,7 +23,7 @@ const stylepara = {
 const LandingPage = () =>
     <div>
 
-            <DemoCarousel />
+        <DemoCarousel />
 
         <div align="center">
             <br/>
