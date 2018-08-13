@@ -3,20 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^1.2.0",
+    "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
-    "attr-accept": "^1.1.2",
     "axios": "^0.18.0",
+    "classnames": "^2.2.5",
     "firebase": "^4.12.1",
     "material-ui": "^0.20.0",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.0",
+    "react-big-calendar": "^0.19.1",
     "react-dom": "^16.3.0",
     "react-dropzone": "^4.2.9",
-    "react-parallax": "^1.8.0",
-    "react-responsive-carousel": "^3.1.39",
+    "react-responsive-carousel": "^3.1.37",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-parallax": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

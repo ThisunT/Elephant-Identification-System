@@ -29,7 +29,7 @@ function createData(array) {
     return data;
 }
 
-let counter = 0;
+let counter = -1;
 function getRow(name, count, image) {
     counter += 1;
     return { id: counter, name, count, image};
@@ -197,7 +197,6 @@ class EnhancedTable extends React.Component {
                 createData(this.props.results).sort((a, b) => (a.image < b.image ? -1 : 1)),
             page: 0,
             rowsPerPage: 5,
-            selectedRowId: null
         };
     }
 
@@ -226,9 +225,7 @@ class EnhancedTable extends React.Component {
     };
 
     handleClick = (event, id) => {
-        this.setState({
-            selectedRowId: id
-        });
+
         const { selected } = this.state;
 
         const selectedIndex = selected.indexOf(id);
@@ -258,9 +255,8 @@ class EnhancedTable extends React.Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
-    onViewImageClicked = event => {
-        var id = this.state.selectedRowId;
-        for(var i = this.state.page; i<this.state.rowsPerPage*this.state.page; i++){
+    onViewImageClicked = (event, id) => {
+        for(var i = this.state.page; i<this.state.rowsPerPage; i++){
             if(this.state.data[i].id===id){
                 this.props.updateImageSelected(this.state.data[i].name);
                 break;
@@ -271,6 +267,7 @@ class EnhancedTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
+        console.log(this.state.imageSet);
         const { classes } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -308,7 +305,7 @@ class EnhancedTable extends React.Component {
                                             {n.name}
                                         </TableCell>
                                         <TableCell >{n.count}</TableCell>
-                                        <TableCell ><button onClick={(event) => this.onViewImageClicked(event)}>View Image</button></TableCell>
+                                        <TableCell ><button onClick={(event) => this.onViewImageClicked(event, n.id)}>View Image</button></TableCell>
                                     </TableRow>
                                 );
                             })}
