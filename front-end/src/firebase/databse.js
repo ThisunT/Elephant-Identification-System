@@ -1,16 +1,11 @@
 import {database} from './firebase';
 
 //Sign Up
-export const doCreateUser = (id, username, email) =>
+export const doCreateUser = (id, username, email, admin) =>
     database.ref(`users/${id}`).set({
         username,
         email,
-        birthday: false,
-        about: false,
-        college:false,
-        country: false,
-        processes: [false],
-        locations: [false]
+        admin: admin
     });
 
 
@@ -22,6 +17,13 @@ export const onceGetUsers = function(id){
     });
 };
 
+export const getUsers = function () {
+    let userRef = database.ref('users');
+    return userRef.once('value').then(function(snapshot) {
+        return snapshot;
+    });
+};
+
 export const updateProcess = function (id,value) {
     let userRef = database.ref('users').child(`${id}`).child('processes');
     if (userRef.child(0)){
@@ -29,6 +31,5 @@ export const updateProcess = function (id,value) {
     }
     return userRef.push(value);
 };
-
 
 

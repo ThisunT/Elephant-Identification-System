@@ -1,9 +1,9 @@
 import * as auth from './auth';
-import * as database from './databse';
 import * as firebase from './firebase';
+import * as database from './databse';
 
 export {
     auth,
-    database,
-    firebase
+    firebase,
+    database
 };

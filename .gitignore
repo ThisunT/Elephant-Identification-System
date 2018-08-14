@@ -4,3 +4,4 @@
 front-end/node_modules/
 *.idea
 *.xml
+*.cmd

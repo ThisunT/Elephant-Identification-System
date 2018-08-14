@@ -1,5 +1,10 @@
 import { auth } from './firebase';
+import * as firebase from 'firebase';
 
+export const doSignInWithGoogle = function() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return auth.signInWithPopup(provider);
+};
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
