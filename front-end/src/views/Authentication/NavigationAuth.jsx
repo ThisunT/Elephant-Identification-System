@@ -8,7 +8,9 @@ import React from "react";
 import profileImage from "assets/img/faces/avatar.jpg";
 import { Link } from "react-router-dom";
 import Button from "../../components/CustomButtons/Button";
+import Home from "@material-ui/icons/es/Home";
 import {auth} from "../../firebase";
+import HeaderLinks from "../../components/Header/HeaderLinks";
 
 class NavigationAuth extends React.Component {
 
@@ -27,37 +29,11 @@ class NavigationAuth extends React.Component {
             <div>
                 <Header
                     brand="Elphas"
-                    rightLinks={
-                        <List className={classes.list}>
-                            <ListItem className={classes.listItem}>
-                                <CustomDropdown
-                                    left
-                                    caret={false}
-                                    buttonText={
-                                        <img
-                                            src={localStorage.getItem("photo")?localStorage.getItem("photo"):profileImage}
-                                            className={classes.img}
-                                            alt="profile"
-                                        />
-                                    }
-                                    buttonProps={{
-                                        className:
-                                        classes.navLink + " " + classes.imageDropdownButton,
-                                        color: "transparent"
-                                    }}
-                                    dropdownList={[
-                                        <Link to={"/profile"}><p style={{color: 'black'}} >Me</p></Link>,
-                                        {divider: true},
-                                        <p  style={{padding:'0px'}} onClick={this.onSignOutClicked}>Sign Out</p>,
-                                    ]}
-                                />
-                            </ListItem>
-                        </List>
-                    }
+                    rightLinks={<HeaderLinks onSignOutClicked={this.onSignOutClicked}/>}
                     fixed
                     color="transparent"
                     changeColorOnScroll={{
-                        height: 300,
+                        height: 200,
                         color: "white"
                     }}
                     {...rest}

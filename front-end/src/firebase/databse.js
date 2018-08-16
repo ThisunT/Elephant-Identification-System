@@ -5,7 +5,12 @@ export const doCreateUser = (id, username, email, admin) =>
     database.ref(`users/${id}`).set({
         username,
         email,
-        admin: admin
+        about: false,
+        institute:false,
+        country: false,
+        admin:false,
+        processes: [false],
+        locations: [false]
     });
 
 

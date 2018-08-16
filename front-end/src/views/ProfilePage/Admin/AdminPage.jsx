@@ -17,7 +17,7 @@ import NavPills from "../../../components/NavPills/NavPills";
 import Settings from "@material-ui/icons/es/Settings";
 import CustomDropdown from "../../../components/CustomDropdown/CustomDropdown";
 import Link from "react-router-dom/es/Link";
-import {database} from "../../../firebase/index";
+import Button from "@material-ui/core/es/Button/Button";
 
 class AdminPage extends React.Component {
     constructor(props){
@@ -42,7 +42,6 @@ class AdminPage extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const {classes} = this.props;
         const imageClasses = classNames(
             classes.imgRaised,
@@ -98,24 +97,23 @@ class AdminPage extends React.Component {
                                     <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                                         <NavPills
                                             alignCenter
-                                            color="primary"
+                                            color="info"
                                             tabs={[
                                                 {
                                                     tabButton: "Saved Processes",
                                                     tabIcon: Camera,
                                                     tabContent: (
-                                                        <GridContainer justify="center">
+                                                        <span>
                                                             {this.state.processes
                                                                 .map(process => {
                                                                     return(
-                                                                        <div className="center">
-                                                                            <h5>{process}</h5>
-                                                                            <br/>
+                                                                        <div style={{marginLeft:'20%'}}>
+                                                                            <h5 style={{textAlign:'left'}}>{process}<Button type="button" color="info" > Process</Button></h5>
                                                                         </div>
                                                                     )
                                                                 })
-                                                            }]
-                                                        </GridContainer>
+                                                            }
+                                                        </span>
                                                     )
                                                 },
                                                 {
