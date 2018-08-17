@@ -1,10 +1,11 @@
 import os, errno
-from flask import Flask, make_response
+from flask import Flask, make_response, send_file, send_from_directory
 from flask import request
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import json
 import classify
+import resnet
 
 UPLOAD_FOLDER = '/uploads'
 
@@ -27,12 +28,12 @@ def upload_file():
             return '0'
         else:
             return filename[:len(filename)-4]
-            #just for a single image keep in mind
+            #just for a single image
 
 
 
-@app.route('/process/<path:dir_path>', methods=['GET', 'POST'])
-def process_image(dir_path):
+@app.route('/process/<string:method>/<path:dir_path>', methods=['GET', 'POST'])
+def process_image(method,dir_path):
 
     if request.method == 'POST':
         os_dir_path = os.path.join(app.root_path+UPLOAD_FOLDER, dir_path)
@@ -43,18 +44,34 @@ def process_image(dir_path):
             for file in files:
                 tmp=[]
                 tmp.append(file)
-                if classify.recognize(os_dir_path+'/'+file):
-                    tmp.append(1)
-                else:
-                    tmp.append(0)
+
+                if method == "count":
+                    tmp.append(classify.count(os_dir_path+'/'+file))
+
+                elif method == "inception":
+                    if classify.inception(os_dir_path+'/'+file):
+                        tmp.append(1)
+                    else:
+                        tmp.append(0)
+                elif method == "mobilenet":
+                    if classify.mobileNet(os_dir_path+'/'+file):
+                        tmp.append(1)
+                    else:
+                        tmp.append(0)
+                elif method == "resnet50":
+                    if classify.resNet50(os_dir_path+'/'+file):
+                        tmp.append(1)
+                    else:
+                        tmp.append(0)
                     
                 response.append(tmp)
-                print(json.dumps(response))
 
         return json.dumps(response)
 
-        #
-        # if classify.recognize(os.path.join(dir_path)):
-        #     return '1'
-        # else:
-        #     return '0'
+@app.route('/getImage/<path:dir_path>/<string:pid>',methods=['GET'])
+def get_images(dir_path,pid):
+    os_img_path = os.path.join(app.root_path + UPLOAD_FOLDER, dir_path + '/')
+    return send_from_directory(os_img_path,pid)
+
+
+

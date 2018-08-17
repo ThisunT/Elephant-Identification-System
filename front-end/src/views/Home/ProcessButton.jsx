@@ -89,8 +89,8 @@ class ProcessButton extends Component {
             return (
                 <div>
                     &nbsp;
-                    <p style={{textDecorationColor:'green'}}>Upload was successful.</p>
-                    <p>If you are going to process choose your settings above</p>
+                    <p style={{color:'green', fontWeight:'bold'}}>Upload was successful.</p>
+                    <p>If you are going to process now choose your settings above</p>
                     <div>
                         <Button variant="raised" color="primary" onClick={this.handleClickOpen}>Click to continue</Button>
                     </div>

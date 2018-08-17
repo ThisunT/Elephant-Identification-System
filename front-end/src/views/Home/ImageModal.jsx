@@ -66,8 +66,8 @@ class SimpleModal extends React.Component {
                     onClose={this.handleClose}
                     id="modal"
                 >
-                    <div id="modalDiv">
-                        <img src={this.props.image} width="100%" height="100%" id="imagee" />
+                    <div id="modalDiv" style={{marginLeft:'25%', marginRight:'auto', marginTop:'auto', marginBottom:'auto'}}>
+                        <img src={this.props.image} width="70%%" height="70%%" id="imagee" style={{align:'center'}}/>
                     </div>
                 </Modal>
             </div>

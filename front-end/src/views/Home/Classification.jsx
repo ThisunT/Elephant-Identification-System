@@ -66,7 +66,6 @@ class Classification extends Component {
 
 
     render(){
-        console.log(this.state);
         if(this.props.result.data !== undefined){
             return(
                 <div>
