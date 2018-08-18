@@ -12,7 +12,15 @@ export const doCreateUser = (id, username, email, admin) =>
         processes: [false],
         locations: [false]
     });
+export const doUpdateUser = (id, about , country, institute) =>
+    database.ref(`users/${id}`).update({
 
+        about: about,
+
+        country: country,
+        institute:institute,
+
+    });
 
 export const onceGetUsers = function(id){
     let userRef = database.ref('users').child(`${id}`);
