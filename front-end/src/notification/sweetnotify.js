@@ -1,7 +1,7 @@
 // import React from 'react';
 import swal from 'sweetalert';
 
-// Initialize Firebase
+// success alert
 export const successAlert = (title, text) =>
     swal({
         title: title,
@@ -9,6 +9,7 @@ export const successAlert = (title, text) =>
         icon: "success"
     });
 
+// error alert
 export const errorAlert = (title, text) =>
     swal({
         title: title,
@@ -16,6 +17,7 @@ export const errorAlert = (title, text) =>
         icon: "error"
     });
 
+// warning alert
 export const warningAlert = (title, text) =>
     swal({
         title: title,
@@ -23,6 +25,7 @@ export const warningAlert = (title, text) =>
         icon: "warning"
     });
 
+// info alert
 export const infoAlert = (title, text) =>
     swal({
         title: title,
