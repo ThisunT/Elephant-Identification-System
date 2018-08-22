@@ -108,6 +108,7 @@ class AccountUpdatePage extends Component {
 
 
                                             <TextField
+                                                label="About"
                                                 value={about}
                                                 onChange={event => this.setState(byPropKey('about', event.target.value))}
                                                 type="text"
@@ -115,12 +116,14 @@ class AccountUpdatePage extends Component {
                                             /><br/>
 
                                             <TextField
+                                                label="country"
                                                 value={country}
                                                 onChange={event => this.setState(byPropKey('country', event.target.value))}
                                                 type="text"
                                                 placeholder="Country"
                                             /><br/>
                                             <TextField
+                                                label="email"
                                                 value={email}
                                                 onChange={event => this.setState(byPropKey('email', event.target.value))}
                                                 type="text"
@@ -128,6 +131,7 @@ class AccountUpdatePage extends Component {
                                             /><br/>
 
                                             <TextField
+                                                label="institute"
                                                 value={institute}
                                                 onChange={event => this.setState(byPropKey('institute', event.target.value))}
                                                 type="text"
