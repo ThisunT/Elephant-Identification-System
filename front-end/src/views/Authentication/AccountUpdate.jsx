@@ -39,6 +39,7 @@ const INITIAL_STATE = {
 
     about: '',
     country: '',
+    email: '',
     institute: '',
 };
 
@@ -60,6 +61,7 @@ class AccountUpdatePage extends Component {
 
             about : '',
             country : '',
+             email: '',
             institute: ''
         }
 
@@ -72,7 +74,7 @@ class AccountUpdatePage extends Component {
         this.handleClose();
         console.log(this.state);
         console.log(this.state.about);
-        database.doUpdateUser(auth.getUser().uid,this.state.about,this.state.country,this.state.institute);
+        database.doUpdateUser(auth.getUser().uid,this.state.about,this.state.country,this.state.email,this.state.institute);
         window.location.reload();
 
     }
@@ -80,6 +82,7 @@ class AccountUpdatePage extends Component {
         const {
             about,
             country,
+            email,
             institute,
         } = this.state;
         //console.log(auth.getUser());
@@ -92,7 +95,7 @@ class AccountUpdatePage extends Component {
                         <div>
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <img src={require('../../images/profile.jpg')} width="1500"/>
+                                    <img src={require('../../images/profile.jpg')} width="100%"/>
                                 </div>
 
                                 <div className="col-lg-4">
@@ -102,11 +105,7 @@ class AccountUpdatePage extends Component {
                                             <br/>
                                             <h1>Profile</h1>
                                             <br/>
-                                            {/*<TextField*/}
-                                                {/*onChange={event => this.setState(byPropKey('username', event.target.value))}*/}
-                                                {/*type="text"*/}
-                                                {/*placeholder="User Name"*/}
-                                            {/*/><br/>*/}
+
 
                                             <TextField
                                                 value={about}
@@ -120,6 +119,12 @@ class AccountUpdatePage extends Component {
                                                 onChange={event => this.setState(byPropKey('country', event.target.value))}
                                                 type="text"
                                                 placeholder="Country"
+                                            /><br/>
+                                            <TextField
+                                                value={email}
+                                                onChange={event => this.setState(byPropKey('email', event.target.value))}
+                                                type="text"
+                                                placeholder="email"
                                             /><br/>
 
                                             <TextField
