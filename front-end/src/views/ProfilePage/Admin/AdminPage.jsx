@@ -17,7 +17,25 @@ import NavPills from "../../../components/NavPills/NavPills";
 import Settings from "@material-ui/icons/es/Settings";
 import CustomDropdown from "../../../components/CustomDropdown/CustomDropdown";
 import Link from "react-router-dom/es/Link";
-import Button from "@material-ui/core/es/Button/Button";
+import {database} from "../../../firebase/index";
+import CustomTabs from "../../../components/CustomTabs/CustomTabs";
+import Face from "@material-ui/icons/es/Face";
+import Chat from "@material-ui/icons/es/Chat";
+import Build from "@material-ui/icons/es/Build";
+import People from "@material-ui/icons/es/People";
+import Refresh from "@material-ui/icons/es/Refresh";
+import Paper from "@material-ui/core/es/Paper/Paper";
+import Table from "@material-ui/core/es/Table/Table";
+import TableHead from "@material-ui/core/es/TableHead/TableHead";
+import TableRow from "@material-ui/core/es/TableRow/TableRow";
+import TableCell from "@material-ui/core/es/TableCell/TableCell";
+import TableBody from "@material-ui/core/es/TableBody/TableBody";
+
+const styles = {
+    textCenter: {
+        textAlign: "center"
+    }
+};
 
 class AdminPage extends React.Component {
     constructor(props){
@@ -28,6 +46,7 @@ class AdminPage extends React.Component {
             admin:null,
             about:null,
             processes:null,
+            peoples: null,
             locations:null,
             institute:null
         }
@@ -39,7 +58,13 @@ class AdminPage extends React.Component {
         this.setState({
             processes: snapshotToArray
         })
+        const snapshotToArray2 = Object.entries(database.getUsers()).map(e => e[1]);
+        this.setState({
+            peoples: snapshotToArray2
+
+        })
     }
+
 
     render() {
         const {classes} = this.props;
@@ -48,6 +73,7 @@ class AdminPage extends React.Component {
             classes.imgRoundedCircle,
             classes.imgFluid
         );
+        console.log(this.state.peoples);
 
         if (this.state.username !== null) {
             return (
@@ -93,27 +119,29 @@ class AdminPage extends React.Component {
                                         {this.state.about}
                                     </p>
                                 </div>
+                                <div className="row">
                                 <GridContainer justify="center">
                                     <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                                         <NavPills
                                             alignCenter
-                                            color="info"
+                                            color="primary"
                                             tabs={[
                                                 {
                                                     tabButton: "Saved Processes",
                                                     tabIcon: Camera,
                                                     tabContent: (
-                                                        <span>
+                                                        <GridContainer justify="center">
                                                             {this.state.processes
-                                                                .map(process => {
+                                                                    .map(process => {
                                                                     return(
-                                                                        <div style={{marginLeft:'20%'}}>
-                                                                            <h5 style={{textAlign:'left'}}>{process}<Button type="button" color="info" > Process</Button></h5>
+                                                                        <div className="center">
+                                                                            <h5>{process}</h5>
+                                                                            <br/>
                                                                         </div>
                                                                     )
                                                                 })
-                                                            }
-                                                        </span>
+                                                            }]
+                                                        </GridContainer>
                                                     )
                                                 },
                                                 {
@@ -129,12 +157,50 @@ class AdminPage extends React.Component {
                                                             </GridItem>
                                                         </GridContainer>
                                                     )
+                                                },
+                                                {
+                                                    tabButton: "Users",
+                                                    tabIcon: People,
+                                                    tabContent: (
+                                                        <GridContainer justify="center">
+                                                            <Paper className={classes.root}>
+                                                                <Table className={classes.table}>
+                                                                    <TableHead>
+                                                                        <TableRow>
+                                                                            <TableCell>Email</TableCell>
+                                                                            <TableCell>About</TableCell>
+                                                                            <TableCell>Country</TableCell>
+                                                                            <TableCell>Institute</TableCell>
+
+                                                                        </TableRow>
+                                                                    </TableHead>
+                                                                    <TableBody>
+                                                                        {this.state.peoples.map(people => {
+                                                                            return (
+                                                                                <TableRow key={people.id}>
+
+                                                                                    <TableCell>{people.email}</TableCell>
+                                                                                    <TableCell>{people.about}</TableCell>
+                                                                                    <TableCell>{people.country}</TableCell>
+                                                                                    <TableCell>{people.institute}</TableCell>
+                                                                                </TableRow>
+                                                                            );
+                                                                        })}
+                                                                    </TableBody>
+                                                                </Table>
+                                                            </Paper>
+                                                        </GridContainer>
+                                                    )
                                                 }
+
                                             ]}
                                         />
                                     </GridItem>
                                 </GridContainer>
+
                                 &nbsp;
+
+                                </div>
                             </div>
                         </div>
                     </div>
