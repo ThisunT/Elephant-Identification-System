@@ -4,21 +4,9 @@ import classNames from "classnames";
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
 
-// @material-ui/icons
-
-// core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import Parallax from "components/Parallax/Parallax.jsx";
-
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
 // Sections for this page
-import ProductSection from "./Sections/Carousel.jsx";
-import MyCalendar from "./Sections/BigCalendar.jsx";
-import axios from "axios/index";
-import logo from '../../assets/img/wait.svg';
 import SectionCarousel from "./Sections/Carousel";
 import Paper from "@material-ui/core/es/Paper/Paper";
 
@@ -77,7 +65,7 @@ class LandingPage extends React.Component {
 
                       <Paper style={style} zDepth={2}>
                           <h1>Demonstration</h1>
-                          <img src={require('../../images/.dropzone.gif')}/>
+                          <img alt="dropzoneGif" src={require('../../assets/img/.dropzone.gif')}/>
                       </Paper>
                   </div>
               </div>

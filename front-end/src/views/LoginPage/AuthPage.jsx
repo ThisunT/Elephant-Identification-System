@@ -6,7 +6,7 @@ import withStyles from "material-ui/styles/withStyles";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/bg8.jpg";
 import LoginPage from "./LoginPage";
 import SignUpForm from "./SignUpForm";
 

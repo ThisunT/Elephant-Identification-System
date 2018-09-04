@@ -3,6 +3,9 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import './dropzone.css'
 import Button from "@material-ui/core/es/Button/Button";
+import withStyles from "material-ui/styles/withStyles";
+import profilePageStyle from "../../assets/jss/material-kit-react/views/profilePage";
+import classNames from "classnames";
 
 const styledropzone = {
     width: 300,
@@ -30,6 +33,7 @@ class Upload extends Component {
             filesToBeSent:value
         });
     }
+
     handleClear(event){
         var array = [this.state.filesToBeSent]; // make a separate copy of the array
         var index = array.indexOf(event.target.value)
@@ -38,15 +42,15 @@ class Upload extends Component {
 
         alert("You cannot add more files here");
         document.getElementById('day" + i + "').style.display ='none';
-
-
     }
 
     handleClick(event){
         const update = this.props;
         if(this.state.filesToBeSent.length>0){
-            var filesArray = this.state.filesToBeSent;
 
+            this.props.setWaiting(true);
+
+            var filesArray = this.state.filesToBeSent;
             const url = 'http://localhost:5000/upload';
             const formData = new FormData();
             formData.append('file',filesArray[0][0]);
@@ -56,8 +60,11 @@ class Upload extends Component {
                 }
             };
 
-            axios.post(url, formData,config)
+            axios.post(url,formData,config)
                 .then(function (response) {
+
+                    update.setWaiting(false);
+
                     update.callUpdate(response);
                     update.updateUploadState(1,true);
                 })
@@ -80,7 +87,7 @@ class Upload extends Component {
                 filesPreview.push(
                     <div id='day" + i + "'>
                         {filesToBeSent[i][0].name}
-                        <Button label="Clear" primary={true} onClick={(event) => this.handleClear(event)} />
+                        <Button onClick={(event) => this.handleClear(event)} >Clear</Button>
                     </div>
                 )
             }
@@ -92,9 +99,10 @@ class Upload extends Component {
     }
     render() {
         var props=this.props;
+        const {classes} = this.props;
         if(props.uploadvisible){
             return (
-                <div className="App">
+                <div className={classNames(classes.main)}>
                     &nbsp;
                     <center>
                         <div style={{marginBottom: '5%'}} align="center"></div>
@@ -138,4 +146,4 @@ class Upload extends Component {
     }
 }
 
-export default Upload;
+export default withStyles(profilePageStyle)(Upload);

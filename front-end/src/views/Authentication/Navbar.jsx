@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import withStyles from "material-ui/styles/withStyles";
 // @material-ui/icons
 // core components
-import Header from "../../components/Header/Header.jsx";
+import Header from "../../assets/components/Header/Header.jsx";
 // sections for this page
 import navbarsStyle from "../../assets/jss/material-kit-react/views/componentsSections/navbarsStyle";
-import Button from "../../components/CustomButtons/Button";
+import Button from "../../assets/components/CustomButtons/Button";
 
 import AuthUserContext from "../Authentication/AuthUserContext";
 import NavigationAuth from "./NavigationAuth";

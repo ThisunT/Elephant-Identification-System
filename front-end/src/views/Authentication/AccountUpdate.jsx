@@ -5,51 +5,27 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import {Link} from 'react-router-dom';
 import Button from "@material-ui/core/es/Button/Button";
-import GridItem from "../../components/Grid/GridItem";
-import CustomInput from "../../components/CustomInput/CustomInput";
-//import * as database from "../../firebase/databse";
 import {auth, database} from '../../firebase/index';
 
-
-const font = "'Varela Round', sans-serif";
-
 const style = {
-      height: '800px',
-      width: '650px',
-      margin: '10%',
-      textAlign: 'center',
-      display: 'inline-block',
+    height: '450px',
+    width: '650px',
+    marginTop: '-40%',
+    textAlign: 'center',
+    display: 'inline-block',
 
-};
-
-const styleN = {
-      fontSize : '2em',
-
-};
-
-const gridStyle ={
-      marginLeft: '12em'
 };
 
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
 });
-const INITIAL_STATE = {
-
-    about: '',
-    country: '',
-    email: '',
-    institute: '',
-};
-
-
 
 this.updateAccount = function (event) {
     //this.handleClose();
     database.doCreateUser();
     window.location.reload();
-}
+};
 class AccountUpdatePage extends Component {
 
     constructor(props){
@@ -57,11 +33,11 @@ class AccountUpdatePage extends Component {
 
         //this.state = { ...INITIAL_STATE };
 
-         this.state = {
+        this.state = {
 
             about : '',
             country : '',
-             email: '',
+            email: '',
             institute: ''
         }
 
@@ -82,7 +58,6 @@ class AccountUpdatePage extends Component {
         const {
             about,
             country,
-            email,
             institute,
         } = this.state;
         //console.log(auth.getUser());
@@ -95,15 +70,14 @@ class AccountUpdatePage extends Component {
                         <div>
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <img src={require('../../images/profile.jpg')} width="100%"/>
+                                    <img alt="profile" src={require('../../assets/img/profile.jpg')} width="100%"/>
                                 </div>
 
                                 <div className="col-lg-4">
                                     <div align="center">
                                         <Paper style={style} zDepth={2}>
-                                            <h1 style={styleN}> My Account: {authUser.email}</h1>
                                             <br/>
-                                            <h1>Profile</h1>
+                                            <h2>Update Profile</h2>
                                             <br/>
 
 
@@ -122,13 +96,6 @@ class AccountUpdatePage extends Component {
                                                 type="text"
                                                 placeholder="Country"
                                             /><br/>
-                                            <TextField
-                                                label="email"
-                                                value={email}
-                                                onChange={event => this.setState(byPropKey('email', event.target.value))}
-                                                type="text"
-                                                placeholder="email"
-                                            /><br/>
 
                                             <TextField
                                                 label="institute"
@@ -137,10 +104,7 @@ class AccountUpdatePage extends Component {
                                                 type="text"
                                                 placeholder="Institute"
                                             /><br/>
-
-
                                             <br/>
-
                                             <Button type="button" color="primary"
                                                     onClick={(event) => this.updateAccount(event)}
                                                     round>Update</Button>

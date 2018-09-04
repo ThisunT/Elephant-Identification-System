@@ -6,14 +6,14 @@ import InputAdornment from "material-ui/Input/InputAdornment";
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
 // core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import IconButton from "components/CustomButtons/IconButton.jsx";
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
+import GridContainer from "../../assets/components/Grid/GridContainer.jsx";
+import GridItem from "../../assets/components/Grid/GridItem.jsx";
+import Button from "../../assets/components/CustomButtons/Button.jsx";
+import IconButton from "../../assets/components/CustomButtons/IconButton.jsx";
+import Card from "../../assets/components/Card/Card.jsx";
+import CardBody from "../../assets/components/Card/CardBody.jsx";
+import CardHeader from "../../assets/components/Card/CardHeader.jsx";
+import CardFooter from "../../assets/components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 

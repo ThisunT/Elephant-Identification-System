@@ -3,8 +3,8 @@ import React from 'react';
 import AuthUserContext from './AuthUserContext';
 import withAuthorization from './withAuthorization';
 
-import ProfilePage from "../ProfilePage/ProfilePage";
 import {auth, database} from "../../firebase";
+import ProfileLoader from "../ProfilePage/ProfileLoader";
 
 class AccountPage extends React.Component{
     render(){
@@ -12,7 +12,7 @@ class AccountPage extends React.Component{
             <AuthUserContext.Consumer>
                 {authUser =>
                     <div>
-                        <ProfilePage user={authUser.uid} username={database.onceGetUsers(auth.getUser().uid)} />
+                        <ProfileLoader user={authUser.uid} username={database.onceGetUsers(auth.getUser().uid)} />
                     </div>
                 }
             </AuthUserContext.Consumer>

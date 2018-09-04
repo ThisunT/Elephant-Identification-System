@@ -6,9 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "@material-ui/core/es/Button/Button";
 import Slide from '@material-ui/core/Slide';
-import classNames from "classnames";
 import withStyles from "material-ui/styles/withStyles";
-import profilePageStyle from "../../assets/jss/material-kit-react/views/profilePage";
 import modalStyle from "../../assets/jss/material-kit-react/modalStyle";
 import Dialog from "@material-ui/core/es/Dialog/Dialog";
 
@@ -26,8 +24,11 @@ class ProcessButton extends Component {
     getResults(event){
         const props = this.props;
 
+        props.setWaiting(true);
+
         this.handleClose();
-        var path = props.path.data;
+        const path = props.path.data;
+
         let url;
 
         if(this.props.countOn){
@@ -45,8 +46,27 @@ class ProcessButton extends Component {
             }
         }
 
+        const updateCountAndLocation = function(res) {
+            res.forEach((locount) => {
+                if(locount[2] !== null){
+                    database.updateCount(auth.getUser().uid, locount[2].toString().replace(".","i").replace(".","i"), locount[1]);
+                }
+                else {
+                    database.updateCount(auth.getUser().uid, null, locount[1]);
+                }
+            })
+        };
+
         axios.post(url)
             .then(function (response) {
+
+                if(props.savedProcess){
+                    database.deleteProcess(auth.getUser().uid, path)
+                }
+
+                props.setWaiting(false);
+
+                updateCountAndLocation(response.data);
 
                 setTimeout(function() {
                     props.updateState(response);
@@ -85,7 +105,7 @@ class ProcessButton extends Component {
     render() {
         const props = this.props;
         const { classes } = this.props;
-        if(props.uploadState===1){
+        if(props.uploadState===1 && !this.props.savedProcess){
             return (
                 <div>
                     &nbsp;
@@ -123,9 +143,20 @@ class ProcessButton extends Component {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    &nbsp;
                 </div>
             );
+        }
+        else if(this.props.savedProcess){
+            return(
+                <div>
+                    &nbsp;
+                    <p>Choose your settings above</p>
+                    <div>
+                        <Button variant="raised" color="primary" onClick={(event) => this.getResults(event)}>Click to continue</Button>
+                    </div>
+                    &nbsp;
+                </div>
+            )
         }
         else {
             return(

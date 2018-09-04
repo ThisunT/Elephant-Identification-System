@@ -1,7 +1,7 @@
 import React from 'react';
 // import FlatButton from 'material-ui/FlatButton';
 import { auth } from '../../firebase/index';
-import Button from "../../components/CustomButtons/Button";
+import Button from "/../../components/CustomButtons/Button";
 
 
 const buttonClicked = function () {

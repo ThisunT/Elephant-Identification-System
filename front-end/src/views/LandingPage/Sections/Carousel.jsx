@@ -2,17 +2,15 @@ import React from "react";
 // react component for creating beautiful carousel
 import Carousel from "react-slick";
 // material-ui components
-// @material-ui/icons
-import LocationOn from "@material-ui/icons/LocationOn";
 // core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Card from "components/Card/Card.jsx";
+import GridContainer from "../../../assets/components/Grid/GridContainer";
+import GridItem from "../../../assets/components/Grid/GridItem.jsx";
+import Card from "../../../assets/components/Card/Card.jsx";
 
-import image1 from "../../../images/caro1.jpg";
-import image2 from "../../../images/caro2.jpg";
-import image3 from "../../../images/caro3.jpg";
-import image4 from "../../../images/caro4.jpg";
+import image1 from "../../../assets/img/caro1.jpg";
+import image2 from "../../../assets/img/caro2.jpg";
+import image3 from "../../../assets/img/caro3.jpg";
+import image4 from "../../../assets/img/caro4.jpg";
 
 
 class SectionCarousel extends React.Component {
